@@ -19,9 +19,15 @@ export default function Product(props) {
         ></Rating>
         <div className="row">
           <div className="price">${product.price}</div>
-         
+
         </div>
+        <div className="row">
+        <div>Status</div>
+        {product.countInStock > 0 ? (<span className="success">In stock</span>) : (<span className="danger">Unavailaible</span>)}
+
       </div>
+      </div>
+      
     </div>
   );
 }
