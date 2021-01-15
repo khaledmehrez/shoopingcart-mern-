@@ -1,16 +1,11 @@
 {
   "name": "amazona",
-  "type":"module",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-    "express": "^4.17.1",
-    "react-router-dom": "^5.2.0"
-  },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+   "start": "nodemon --watch backend --exec node  --experimental-modules backend/start.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/khaledsimplon/shoopingcart-mern-/issues"
   },
-  "homepage": "https://github.com/khaledsimplon/shoopingcart-mern-#readme"
+  "homepage": "https://github.com/khaledsimplon/shoopingcart-mern-#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/register": "^7.12.10",
+    "nodemon": "^2.0.7"
+  }
 }
