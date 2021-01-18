@@ -19,11 +19,12 @@ export default function HomeScreen() {
                 // handle error
                setError(err)
                setLoader(false)
+               console.log(err)
                
             })
             
     }, [])
-
+    console.log(   )
     
     if (loader === true) {
         return <LoadingBox />

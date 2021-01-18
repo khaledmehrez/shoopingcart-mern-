@@ -4,7 +4,9 @@ import './App.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
+import Check from './components/Check';
 function App() {
+  console.log(navigator.onLine)
   return (
     
     <div className="App">
@@ -21,8 +23,9 @@ function App() {
       </header>
       </div>
       <main>
+      
         <Route path="/" component={HomeScreen} exact="/"/>
-       {/* <Route path="/product/:id" component={ProductScreen}/> */}
+       <Route path="/product/:id" component={ProductScreen}/>
      
     </main>
     </BrowserRouter>
