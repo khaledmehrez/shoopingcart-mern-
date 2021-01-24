@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 
 import Rating from '../components/Rating'
 import { Link } from 'react-router-dom'
@@ -11,14 +11,41 @@ export default function ProductScreen(props) {
     const productDetails = useSelector(state => state.productDetails)
     const { products, loading, error } = productDetails
     const productID = props.match.params.id
-    console.log(detailProducts)
-  
+const [qty, setQty] = useState(1)
+const [disableAdd, setDisableAdd] = useState(false)
+const [disableRemove, setDisableRemove] = useState(false)
 
     useEffect(() => {
         dispatch(detailProducts(productID))
 
     }, [dispatch, productID])
 
+    const Addqty=()=>{
+        if(qty<products.countInStock){
+            setDisableRemove(false)
+     setQty(qty+1)
+        }
+        else{
+            setDisableAdd(true)
+        }
+    }
+    const Removeqyt=()=>{
+        if(qty>1){
+            setDisableAdd(false)
+        setQty(qty-1)
+        }
+        else{
+            setDisableRemove(true)
+        }
+    }
+    const handleChange=(e)=>{
+        const n=Number(e.target.value)
+        const value=e.target.value
+        if(n<=products.countInStock ){
+    setQty(n)
+        }
+    }
+    
     if (loading === true) {
         return <LoadingBox />
     }
@@ -71,9 +98,19 @@ export default function ProductScreen(props) {
 
                                     </div>
                                 </li>
-                                <li>
-                                    <button className="primary block">Add to cart</button>
-                                </li>
+                                {
+                                    products.countInStock>0 &&
+                                    (<>
+                                    <button type="button" disabled={disableRemove} onClick={Removeqyt} >--</button>
+                                    <input value={qty} onChange={(e)=>handleChange(e)}/>
+                                    <button type='button' disabled={disableAdd} onClick={Addqty}>+</button>
+                                        <li>
+                                        <button className="primary block">Add to cart</button>
+                                    </li>
+                                    </>
+                                    )
+                                }
+                               
 
                             </ul>
                         </div>
