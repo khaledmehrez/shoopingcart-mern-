@@ -5,6 +5,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import Check from './components/Check';
+import CartScreen from './screens/CartScreen';
 function App() {
   console.log(navigator.onLine)
   return (
@@ -23,7 +24,7 @@ function App() {
       </header>
       </div>
       <main>
-      
+      <Route path="/cart/:id?" component={CartScreen} ></Route>
         <Route path="/" component={HomeScreen} exact="/"/>
        <Route path="/product/:id" component={ProductScreen}/>
      
