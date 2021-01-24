@@ -1,49 +1,57 @@
-import React from 'react'
-import NotfoundScreen from './NotfoundScreen'
-//data
-import data from "../data"
+import React, { useEffect } from 'react'
+
 import Rating from '../components/Rating'
 import { Link } from 'react-router-dom'
-
+import { useDispatch, useSelector } from 'react-redux'
+import LoadingBox from '../components/LoadingBox'
+import MessageBox from '../components/MessageBox'
+import { detailProducts } from "../actions/productActions"
 export default function ProductScreen(props) {
-    const product = data.products.find(el => el._id === props.match.params.id)
-    if (product === undefined) {
+    const dispatch = useDispatch()
+    const productDetails = useSelector(state => state.productDetails)
+    const { products, loading, error } = productDetails
+    const productID = props.match.params.id
+    console.log(detailProducts)
+  
 
-        return (
-            <div>
-                
-                <Link to="/">Back to HomeScreen</Link>
-                <NotfoundScreen />
-            </div>
-        )
+    useEffect(() => {
+        dispatch(detailProducts(productID))
+
+    }, [dispatch, productID])
+
+    if (loading === true) {
+        return <LoadingBox />
+    }
+    else if (error !== undefined) {
+        return <MessageBox>{`${error}`}</MessageBox>
     }
     else {
         return (
             <div>
-                 <Link to="/">Back to HomeScreen</Link>
+                <Link to="/">Back to HomeScreen</Link>
                 <div className="row">
                     <div className="col-2">
-<img className="large" src={product.image} alt={product.name}/>
+                        <img className="large" src={products.image} alt={products.name} />
 
 
                     </div>
                     <div className="col-1">
 
-                       <ul>
-                           <li>
-                               <h1>{product.name}</h1>
-                           </li>
-                           <li>
-                               <Rating rating={product.rating} numReviews={product.numReviews} />
-                           </li>
-                           <li>
-                               price=${product.price}
-                           </li>
-                           <li>
-                               description:{product.description}
-                           </li>
-                       </ul>
-             </div>
+                        <ul>
+                            <li>
+                                <h1>{products.name}</h1>
+                            </li>
+                            <li>
+                                <Rating rating={products.rating} numReviews={products.numReviews} />
+                            </li>
+                            <li>
+                                price=${products.price}
+                            </li>
+                            <li>
+                                description:{products.description}
+                            </li>
+                        </ul>
+                    </div>
 
                     <div className="col-1">
 
@@ -52,15 +60,15 @@ export default function ProductScreen(props) {
                             <ul>
                                 <li>
                                     <div className="row">
-                                        <div>price</div> 
-                                        <div className="price">{product.price}</div>
+                                        <div>price</div>
+                                        <div className="price">{products.price}</div>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="row">
-                                        <div>Status</div> 
-                                        {product.countInStock>0?(<span className="success">In stock</span>):(<span className="error">Unavailaible</span>)}
-                                        
+                                        <div>Status</div>
+                                        {products.countInStock > 0 ? (<span className="success">In stock</span>) : (<span className="error">Unavailaible</span>)}
+
                                     </div>
                                 </li>
                                 <li>
@@ -69,7 +77,7 @@ export default function ProductScreen(props) {
 
                             </ul>
                         </div>
-             </div>
+                    </div>
 
 
 
@@ -78,4 +86,5 @@ export default function ProductScreen(props) {
             </div>
         )
     }
+
 }
