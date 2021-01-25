@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Product from '../components/Products';
 
 import LoadingBox from '../components/LoadingBox';
@@ -14,7 +14,7 @@ export default function HomeScreen() {
 
     }, [dispatch])
 
-
+console.log(products)
     if (loading === true) {
         return <LoadingBox />
     }

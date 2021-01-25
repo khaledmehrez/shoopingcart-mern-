@@ -1,10 +1,10 @@
-import logo from './logo.svg';
+
 import './App.css';
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
-import Check from './components/Check';
+
 import CartScreen from './screens/CartScreen';
 function App() {
   console.log(navigator.onLine)
@@ -15,11 +15,11 @@ function App() {
       <div class="grid-container">
       <header class="row">
         <div>
-          <a class="brand" href="index.html">amazona</a>
+          <Link  class="brand" to="index.html">amazona</Link>
         </div>
         <div>
-          <a href="cart.html">Cart</a>
-          <a href="signin.html">Sign In</a>
+          <Link to="cart.html">Cart</Link>
+          <Link to="signin.html">Sign In</Link>
         </div>
       </header>
       </div>

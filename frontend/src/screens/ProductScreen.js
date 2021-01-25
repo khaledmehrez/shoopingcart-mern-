@@ -9,12 +9,11 @@ import { detailProducts } from "../actions/productActions"
 export default function ProductScreen(props) {
     const dispatch = useDispatch()
     const productDetails = useSelector(state => state.productDetails)
-    const { products, loading, error } = productDetails
+    const { product, loading, error } = productDetails
     const productID = props.match.params.id
 const [qty, setQty] = useState(1)
 const [disableAdd, setDisableAdd] = useState(false)
 const [disableRemove, setDisableRemove] = useState(false)
-const [availabilty, setAvailability] = useState(false)
 
     useEffect(() => {
         dispatch(detailProducts(productID))
@@ -22,7 +21,7 @@ const [availabilty, setAvailability] = useState(false)
     }, [dispatch, productID])
 
     const Addqty=()=>{
-        if(qty<products.countInStock){
+        if(qty<product.countInStock){
             setDisableRemove(false)
      setQty(qty+1)
         }
@@ -44,7 +43,7 @@ const [availabilty, setAvailability] = useState(false)
     const handleChange=(e)=>{
         const n=Number(e.target.value)
         
-        if(n<=products.countInStock ){
+        if(n<=product.countInStock ){
             setDisableAdd(false)
             setDisableRemove(false)
     setQty(n)
@@ -64,7 +63,7 @@ const [availabilty, setAvailability] = useState(false)
                 <Link to="/">Back to HomeScreen</Link>
                 <div className="row">
                     <div className="col-2">
-                        <img className="large" src={products.image} alt={products.name} />
+                        <img className="large" src={product.image} alt={product.name} />
 
 
                     </div>
@@ -72,16 +71,16 @@ const [availabilty, setAvailability] = useState(false)
 
                         <ul>
                             <li>
-                                <h1>{products.name}</h1>
+                                <h1>{product.name}</h1>
                             </li>
                             <li>
-                                <Rating rating={products.rating} numReviews={products.numReviews} />
+                                <Rating rating={product.rating} numReviews={product.numReviews} />
                             </li>
                             <li>
-                                price=${products.price}
+                                price=${product.price}
                             </li>
                             <li>
-                                description:{products.description}
+                                description:{product.description}
                             </li>
                         </ul>
                     </div>
@@ -94,23 +93,23 @@ const [availabilty, setAvailability] = useState(false)
                                 <li>
                                     <div className="row">
                                         <div>price</div>
-                                        <div className="price">{products.price}</div>
+                                        <div className="price">{product.price}</div>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="row">
                                         <div>Status</div>
-                                        {products.countInStock > 0 ? (<span className="success">In stock</span>) : (<span className="error">Unavailaible</span>)}
+                                        {product.countInStock > 0 ? (<span className="success">In stock</span>) : (<span className="error">Unavailaible</span>)}
 
                                     </div>
                                 </li>
                                 {
-                                    products.countInStock>0 &&
+                                    product.countInStock>0 &&
                                     (<>
                                     <button type="button" disabled={disableRemove} onClick={Removeqyt} >--</button>
                                     
                                     <input value={qty} onChange={(e)=>handleChange(e)}  />
-                                    {availabilty && <p> quantity is not availible</p>}
+                                    
                                     <button type='button' disabled={disableAdd} onClick={Addqty}>+</button>
                                         <li>
                                         <button className="primary block"  onClick = {addToCartHandler}>Add to cart</button>
