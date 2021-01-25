@@ -6,8 +6,11 @@ import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 
 import CartScreen from './screens/CartScreen';
+import { useSelector } from 'react-redux';
 function App() {
-  console.log(navigator.onLine)
+ 
+  const cart = useSelector(state => state.cart)
+  const {cartItems}=cart
   return (
     
     <div className="App">
@@ -18,7 +21,8 @@ function App() {
           <Link  class="brand" to="index.html">amazona</Link>
         </div>
         <div>
-          <Link to="cart.html">Cart</Link>
+          <Link to="cart.html">
+            {cartItems.length>0 &&(<span className="badge">{cartItems.length}</span>)} Cart</Link>
           <Link to="signin.html">Sign In</Link>
         </div>
       </header>
